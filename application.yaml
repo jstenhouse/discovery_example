@@ -1,0 +1,15 @@
+spring:
+    profiles: hello
+api:
+   saying: Hello, World!
+server:
+    port: 8080
+
+---
+
+spring:
+    profiles: goodbye
+api:
+   saying: Goodbye, World!
+server:
+    port: 8081

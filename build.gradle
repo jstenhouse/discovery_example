@@ -40,5 +40,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-jetty:$springBootVersion"
     compile "org.springframework.boot:spring-boot-actuator:$springBootVersion"
 
+    compile 'com.google.guava:guava:19.0'
+
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
