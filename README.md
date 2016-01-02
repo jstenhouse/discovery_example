@@ -15,3 +15,13 @@ http://localhost:8080/hello-world
 ```
 http://localhost:8080/goodbye-world
 ```
+
+### Docker
+
+```
+./gradlew clean build && docker build -t jstenhouse/discovery_example:latest .
+```
+
+```
+docker run --name discovery_example -d -p 8080:8080 jstenhouse/discovery_example:latest
+```
