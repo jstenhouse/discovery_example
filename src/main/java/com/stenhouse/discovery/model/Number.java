@@ -4,24 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.base.MoreObjects;
 
 /**
- * Created by jason on 1/1/16.
+ * Created by jason on 1/3/16.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Message {
+public class Number {
 
-    private String value;
+    private int value;
 
-    public Message() {}
+    public Number() {}
 
-    public Message(final String value) {
+    public Number(final int value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(final String value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
@@ -31,4 +31,5 @@ public class Message {
                 .add("value", value)
                 .toString();
     }
+
 }
