@@ -7,21 +7,21 @@ import com.google.common.base.MoreObjects;
  * Created by jason on 1/3/16.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Number {
+public class Message {
 
-    private int value;
+    private String value;
 
-    public Number() {}
+    public Message() {}
 
-    public Number(final int value) {
+    public Message(final String value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
