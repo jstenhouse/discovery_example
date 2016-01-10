@@ -42,5 +42,7 @@ dependencies {
 
     compile 'com.google.guava:guava:19.0'
 
+    compile 'io.fastjson:etcd-client:0.33'
+
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }

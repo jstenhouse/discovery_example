@@ -23,7 +23,7 @@ http://localhost:8080/pong
 ```
 
 ```
-docker run --name discovery_example_ping -d -p 8080:8080 -e SERVER_PORT=8080 jstenhouse/discovery_example:latest
+docker run --name discovery_example_ping -d -p 8080:8080 -e SERVICE_NAME=ping -e SERVER_PORT=8080 --link etcd jstenhouse/discovery_example:latest
 ```
 
 ```
