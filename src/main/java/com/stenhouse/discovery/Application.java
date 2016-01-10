@@ -1,11 +1,10 @@
 package com.stenhouse.discovery;
 
+import com.stenhouse.discovery.hystrix.EtcdSetCommand;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.boon.etcd.ClientBuilder;
 import org.boon.etcd.Etcd;
-import org.boon.etcd.Response;
-import org.boon.etcd.exceptions.ConnectionException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -46,23 +45,20 @@ public class Application {
     public Etcd etcdClient() {
         log.info("Etcd Host: " + ETCD_HOST_URI);
 
-        return ClientBuilder.builder().hosts(ETCD_HOST_URI).timeOutInMilliseconds(10000).createClient();
+        return ClientBuilder.builder().hosts(ETCD_HOST_URI).createClient();
     }
 
     private void registerService() {
         try {
-            Etcd etcd = etcdClient();
-
             String serviceAddress = InetAddress.getLocalHost().getHostAddress();
             String serviceUri = "http://" + serviceAddress + ":" + port;
 
             log.info("Service host: " + serviceUri);
 
-            Response response = etcd.set("service/" + serviceName, serviceUri);
-
-            log.info("Etcd Response: " + response.toString());
+            EtcdSetCommand setCommand = new EtcdSetCommand(etcdClient(), serviceName, serviceUri);
+            setCommand.execute();
         }
-        catch (UnknownHostException | ConnectionException e) {
+        catch (UnknownHostException e) {
             log.error(e);
         }
     }

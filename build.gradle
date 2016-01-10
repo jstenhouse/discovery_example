@@ -44,5 +44,7 @@ dependencies {
 
     compile 'io.fastjson:etcd-client:0.33'
 
+    compile 'com.netflix.hystrix:hystrix-core:1.4.22'
+
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
