@@ -16,6 +16,12 @@ http://localhost:8080/ping
 http://localhost:8080/pong
 ```
 
+```
+http://localhost:8080/services
+```
+
+**Note:** The `/services` endpoint assumes etcd is running and the `/ping` and `/pong` services are running and registered. See [jstenhouse/docker_playground](https://github.com/jstenhouse/docker_playground/tree/master/service-playground) for more info.
+
 ### Docker
 
 ```

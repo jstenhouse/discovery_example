@@ -9,6 +9,7 @@ import org.boon.etcd.exceptions.ConnectionException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
@@ -21,10 +22,10 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 public class Application {
 
+    private final static Log log = LogFactory.getLog(Application.class);
+
     // accessible by docker link set in /etc/hosts
     private final static URI ETCD_HOST_URI = URI.create("http://etcd:4001");
-
-    private Log log = LogFactory.getLog(Application.class);
 
     @Value("${SERVICE_NAME:unknown}")
     private String serviceName;
@@ -41,9 +42,16 @@ public class Application {
         registerService();
     }
 
+    @Bean
+    public Etcd etcdClient() {
+        log.info("Etcd Host: " + ETCD_HOST_URI);
+
+        return ClientBuilder.builder().hosts(ETCD_HOST_URI).timeOutInMilliseconds(10000).createClient();
+    }
+
     private void registerService() {
         try {
-            Etcd etcd = getEtcdClient();
+            Etcd etcd = etcdClient();
 
             String serviceAddress = InetAddress.getLocalHost().getHostAddress();
             String serviceUri = "http://" + serviceAddress + ":" + port;
@@ -57,11 +65,5 @@ public class Application {
         catch (UnknownHostException | ConnectionException e) {
             log.error(e);
         }
-    }
-
-    private Etcd getEtcdClient() {
-        log.info("Etcd Host: " + ETCD_HOST_URI);
-
-        return ClientBuilder.builder().hosts(ETCD_HOST_URI).createClient();
     }
 }
